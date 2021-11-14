@@ -71,6 +71,7 @@ public class benhnhanGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public benhnhanGUI() {
+		setTitle("Bệnh  nhân");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1234, 695);
 		contentPane = new JPanel();

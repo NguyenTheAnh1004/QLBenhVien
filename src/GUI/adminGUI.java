@@ -40,8 +40,9 @@ public class adminGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public adminGUI() {
+		setTitle("Trang chủ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 629);
+		setBounds(300, 100, 900, 629);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -107,6 +108,11 @@ public class adminGUI extends JFrame {
 		contentPane.add(btnDanhSchTi);
 		
 		JButton btnToPhiuKhm = new JButton("T\u1EA1o phi\u1EBFu kh\u00E1m b\u1EC7nh");
+		btnToPhiuKhm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnToPhiuKhm_actionPerformed(e);
+			}
+		});
 		btnToPhiuKhm.setIcon(new ImageIcon("Image\\create-1-32.png"));
 		btnToPhiuKhm.setHorizontalAlignment(SwingConstants.LEFT);
 		btnToPhiuKhm.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -155,6 +161,15 @@ public class adminGUI extends JFrame {
 		lblNewLabel_2.setIcon(new ImageIcon("Image\\model-employee-256.png"));
 		lblNewLabel_2.setBounds(477, 234, 248, 255);
 		contentPane.add(lblNewLabel_2);
+		
+		JButton btnlogout = new JButton("Đăng xuất");
+		btnlogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnlogout_actionPerformed(e);
+			}
+		});
+		btnlogout.setBounds(776, 103, 110, 30);
+		contentPane.add(btnlogout);
 	}
 	protected void do_btnNewButton_8_actionPerformed(ActionEvent e) {
 		hsbaGUI hsbaGUI = new hsbaGUI();
@@ -181,5 +196,14 @@ public class adminGUI extends JFrame {
 		accountGUI.setVisible(true);
 		this.setVisible(false);
 	}
-	
+	protected void do_btnlogout_actionPerformed(ActionEvent e) {
+		loginGUI loginGUI = new loginGUI();
+		loginGUI.setVisible(true);
+		this.setVisible(false);
+	}
+	protected void do_btnToPhiuKhm_actionPerformed(ActionEvent e) {
+		khamBenhGUI khambenhGUI = new khamBenhGUI();
+		khambenhGUI.setVisible(true);
+		this.setVisible(false);
+	}
 }

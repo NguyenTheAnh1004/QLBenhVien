@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class quantriGUI extends JFrame {
 
@@ -55,14 +57,24 @@ public class quantriGUI extends JFrame {
 		lblNewLabel.setBounds(272, 23, 509, 51);
 		panel.add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("Danh s\u00E1ch b\u1EC7nh nh\u00E2n");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setIcon(new ImageIcon("Image\\bill-12-32.png"));
-		btnNewButton.setBounds(0, 92, 214, 58);
-		contentPane.add(btnNewButton);
+		JButton btnBenhNhan = new JButton("Danh s\u00E1ch b\u1EC7nh nh\u00E2n");
+		btnBenhNhan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnBenhNhan_actionPerformed(e);
+			}
+		});
+		btnBenhNhan.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnBenhNhan.setHorizontalAlignment(SwingConstants.LEFT);
+		btnBenhNhan.setIcon(new ImageIcon("Image\\bill-12-32.png"));
+		btnBenhNhan.setBounds(0, 92, 214, 58);
+		contentPane.add(btnBenhNhan);
 		
 		JButton btnDanhSchBc = new JButton("Danh s\u00E1ch b\u00E1c s\u0129");
+		btnDanhSchBc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnDanhSchBc_actionPerformed(e);
+			}
+		});
 		btnDanhSchBc.setIcon(new ImageIcon("Image\\bill-12-32.png"));
 		btnDanhSchBc.setHorizontalAlignment(SwingConstants.LEFT);
 		btnDanhSchBc.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -70,6 +82,11 @@ public class quantriGUI extends JFrame {
 		contentPane.add(btnDanhSchBc);
 		
 		JButton btnDanhSchNhn = new JButton("Danh s\u00E1ch nh\u00E2n vi\u00EAn");
+		btnDanhSchNhn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnDanhSchNhn_actionPerformed(e);
+			}
+		});
 		btnDanhSchNhn.setIcon(new ImageIcon("Image\\bill-12-32.png"));
 		btnDanhSchNhn.setHorizontalAlignment(SwingConstants.LEFT);
 		btnDanhSchNhn.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -77,6 +94,11 @@ public class quantriGUI extends JFrame {
 		contentPane.add(btnDanhSchNhn);
 		
 		JButton btnDanhSchTi = new JButton("Danh s\u00E1ch t\u00E0i kho\u1EA3n");
+		btnDanhSchTi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnDanhSchTi_actionPerformed(e);
+			}
+		});
 		btnDanhSchTi.setIcon(new ImageIcon("Image\\bill-12-32.png"));
 		btnDanhSchTi.setHorizontalAlignment(SwingConstants.LEFT);
 		btnDanhSchTi.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -84,6 +106,11 @@ public class quantriGUI extends JFrame {
 		contentPane.add(btnDanhSchTi);
 		
 		JButton btnNewButton_7 = new JButton("B\u00E1o c\u00E1o");
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnNewButton_7_actionPerformed(e);
+			}
+		});
 		btnNewButton_7.setIcon(new ImageIcon("Image\\statistic-2-32.png"));
 		btnNewButton_7.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton_7.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -101,4 +128,29 @@ public class quantriGUI extends JFrame {
 		contentPane.add(lblNewLabel_2);
 	}
 
+	protected void do_btnBenhNhan_actionPerformed(ActionEvent e) {
+		benhnhanGUI benhnhanGUI = new benhnhanGUI();
+		benhnhanGUI.setVisible(true);
+		this.setVisible(false);
+	}
+	
+	protected void do_btnDanhSchBc_actionPerformed(ActionEvent e) {
+		bacsiGUI bacsiGUI = new bacsiGUI();
+		bacsiGUI.setVisible(true);
+		this.setVisible(false);
+	}
+	
+	protected void do_btnDanhSchNhn_actionPerformed(ActionEvent e) {
+		nhanvienGUI nhanvienGUI = new nhanvienGUI();
+		nhanvienGUI.setVisible(true);
+		this.setVisible(false);
+	}
+	protected void do_btnDanhSchTi_actionPerformed(ActionEvent e) {
+		accountGUI accountGUI  = new accountGUI();
+		accountGUI.setVisible(true);
+		this.setVisible(false);
+	}
+	protected void do_btnNewButton_7_actionPerformed(ActionEvent e) {
+		
+	}
 }

@@ -68,8 +68,9 @@ public class bacsiGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public bacsiGUI() {
+		setTitle("Bác sĩ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1234, 695);
+		setBounds(150, 100, 1234, 695);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GREEN);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -376,4 +376,27 @@ public class khambenhDAL {
 			
 			return data;
 		}
+		
+		public int getSPKMAx() {
+			int Id = -1;
+
+			if (openConnection()) {
+				try {
+					// query
+					String sql = "select MAX(SOPHIEUKHAM) from kham_benh";
+					PreparedStatement statement = connection.prepareCall(sql);
+
+					ResultSet resultSet = statement.executeQuery();
+
+					while (resultSet.next()) {
+						Id = resultSet.getInt("MAX(SOPHIEUKHAM)") + 1;
+					}
+				} catch (SQLException e) {
+					System.out.println(e);
+				} finally {
+					closeConnection();
+				}
+			}
+			return Id;
+		}
 }

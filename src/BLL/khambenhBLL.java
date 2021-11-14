@@ -59,4 +59,8 @@ public class khambenhBLL {
 	public String getData1(String table, String dataToGet, String name, String col) {
 		return khambenhDAL.getData1(table, dataToGet, name, col);
 	}
+	public int getSPKMAX() {
+		return khambenhDAL.getSPKMAx();
+		
+	}
 }

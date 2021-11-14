@@ -58,8 +58,9 @@ public class loginGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public loginGUI() {
+		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 752, 456);
+		setBounds(400, 150, 752, 456);
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.WHITE);
 		contentPane.setBackground(Color.GREEN);

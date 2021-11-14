@@ -70,8 +70,10 @@ public class hsbaGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public hsbaGUI() {
+		setResizable(false);
+		setTitle("hồ sơ bệnh án");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1234, 695);
+		setBounds(150, 100, 1234, 695);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GREEN);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
