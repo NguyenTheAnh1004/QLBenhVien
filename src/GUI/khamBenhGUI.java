@@ -241,7 +241,7 @@ public class khamBenhGUI extends JFrame {
 		JButton btnGoBack = new JButton("Trở lại");
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				do_btnGoBack_actionPerformed(e);
 			}
 		});
 		btnGoBack.setBounds(0, 0, 106, 48);
@@ -403,6 +403,7 @@ public class khamBenhGUI extends JFrame {
 		}
 		this.setVisible(false);
 	}
+	
 	private void displayList() {
 		model.setRowCount(0);
 		khamBenhList = kbBLL.getAllkhambenh();
@@ -438,4 +439,5 @@ public class khamBenhGUI extends JFrame {
     		tfsophongkham.setText(String.valueOf(model.getValueAt(selectedIndex, 7)));
         }
 	}
+	
 }

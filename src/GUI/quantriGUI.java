@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -105,17 +106,17 @@ public class quantriGUI extends JFrame {
 		btnDanhSchTi.setBounds(0, 262, 214, 58);
 		contentPane.add(btnDanhSchTi);
 		
-		JButton btnNewButton_7 = new JButton("B\u00E1o c\u00E1o");
-		btnNewButton_7.addActionListener(new ActionListener() {
+		JButton btnBaoCao = new JButton("B\u00E1o c\u00E1o");
+		btnBaoCao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnNewButton_7_actionPerformed(e);
 			}
 		});
-		btnNewButton_7.setIcon(new ImageIcon("Image\\statistic-2-32.png"));
-		btnNewButton_7.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton_7.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNewButton_7.setBounds(0, 318, 214, 58);
-		contentPane.add(btnNewButton_7);
+		btnBaoCao.setIcon(new ImageIcon("Image\\statistic-2-32.png"));
+		btnBaoCao.setHorizontalAlignment(SwingConstants.LEFT);
+		btnBaoCao.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnBaoCao.setBounds(0, 318, 214, 58);
+		contentPane.add(btnBaoCao);
 		
 		JLabel lblNewLabel_1 = new JLabel("Xin ch\u00E0o qu\u1EA3n tr\u1ECB vi\u00EAn");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 22));
@@ -126,6 +127,15 @@ public class quantriGUI extends JFrame {
 		lblNewLabel_2.setIcon(new ImageIcon("Image\\customer-service-78-256.png"));
 		lblNewLabel_2.setBounds(498, 232, 248, 255);
 		contentPane.add(lblNewLabel_2);
+		
+		JButton btnlogout = new JButton("Đăng xuất");
+		btnlogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnlogout_actionPerformed(e);
+			}
+		});
+		btnlogout.setBounds(764, 103, 110, 30);
+		contentPane.add(btnlogout);
 	}
 
 	protected void do_btnBenhNhan_actionPerformed(ActionEvent e) {
@@ -152,5 +162,15 @@ public class quantriGUI extends JFrame {
 	}
 	protected void do_btnNewButton_7_actionPerformed(ActionEvent e) {
 		
+	}
+	protected void do_btnlogout_actionPerformed(ActionEvent e) {
+		int option = JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất ko?", "Question",
+				JOptionPane.YES_NO_OPTION);
+
+		if (option == JOptionPane.YES_OPTION) {
+			loginGUI loginGUI = new loginGUI();
+			loginGUI.setVisible(true);
+			this.setVisible(false);
+		}
 	}
 }
