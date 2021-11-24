@@ -38,6 +38,7 @@ public class loginGUI extends JFrame {
 
 	static String code = null;
 	static String permission = null;
+	private JButton btnDangKy;
 	/**
 	 * Launch the application.
 	 */
@@ -108,6 +109,22 @@ public class loginGUI extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon("Image\\unnamed.jpg"));
 		lblNewLabel.setBounds(0, 0, 413, 419);
 		contentPane.add(lblNewLabel);
+		
+		btnDangKy = new JButton("Đăng ký");
+		btnDangKy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnDangKy_actionPerformed(e);
+			}
+		});
+		btnDangKy.setForeground(Color.RED);
+		btnDangKy.setBorder(null);
+		btnDangKy.setBackground(Color.GREEN);
+		btnDangKy.setBounds(609, 358, 85, 21);
+		contentPane.add(btnDangKy);
+		
+		JLabel lblNewLabel_1 = new JLabel("Bạn chưa có tài khoản ?");
+		lblNewLabel_1.setBounds(462, 360, 139, 17);
+		contentPane.add(lblNewLabel_1);
 	}
 	protected void do_btnDangNhap_actionPerformed(ActionEvent e) {
 		if(tfAccountName.getText().equals("") || String.valueOf(tfPass.getPassword()).equals("")) {
@@ -155,5 +172,10 @@ public class loginGUI extends JFrame {
 				e1.printStackTrace();
 			}
 		}
+	}
+	protected void do_btnDangKy_actionPerformed(ActionEvent e) {
+		dangKyGUI dangKyGUI = new dangKyGUI();
+		dangKyGUI.setVisible(true);
+		this.setVisible(false);
 	}
 }

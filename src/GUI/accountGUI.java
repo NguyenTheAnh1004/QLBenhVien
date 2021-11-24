@@ -267,7 +267,7 @@ public class accountGUI extends JFrame {
 				displayList();
 				do_btnReset_actionPerformed(e);
 			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(null, "Giá bán hoặc giá nhập hoặc số lượng phải là số");
+				JOptionPane.showMessageDialog(null, "Nhập đúng định dạng");
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin của tài khoản");
