@@ -51,7 +51,7 @@ public class adminGUI extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.GREEN);
+		panel.setBackground(Color.CYAN);
 		panel.setBounds(0, 0, 886, 93);
 		contentPane.add(panel);
 		panel.setLayout(null);
