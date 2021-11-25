@@ -83,7 +83,7 @@ public class accountGUI extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("DANH S\u00C1CH H\u1ED2 S\u01A0 B\u1EC6NH \u00C1N");
+		JLabel lblNewLabel = new JLabel("DANH SÁCH TÀI KHOẢN");
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 21));
 		lblNewLabel.setBounds(339, 10, 334, 32);
