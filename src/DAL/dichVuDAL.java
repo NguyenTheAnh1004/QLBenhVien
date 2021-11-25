@@ -20,9 +20,7 @@ public class dichVuDAL {
 		ArrayList<dichvu> dichvuList = new ArrayList<>();
 		
 		if(openConnection()) {
-			try {
-	            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-	            
+			try {        
 	            //query
 	            String sql = "select * from dich_vu";
 	            Statement statement = connection.createStatement();

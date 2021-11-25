@@ -25,9 +25,6 @@ public class bacsiDAL {
 
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
 				// query
 				String sql = "select * from bac_si";
 				Statement statement = connection.createStatement();
@@ -133,9 +130,6 @@ public class bacsiDAL {
 
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
 				// query
 				String sql = "select * from bac_si where TENBS like ?";
 				PreparedStatement statement = connection.prepareCall(sql);
@@ -163,9 +157,6 @@ public class bacsiDAL {
 
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
 				// query
 				String sql = "select * from bac_si";
 				Statement statement = connection.createStatement();
@@ -228,6 +219,7 @@ public class bacsiDAL {
 
 		return result;
 	}
+
 	// hàm kết nối và đóng csdl
 	public boolean openConnection() {
 		try {
@@ -254,9 +246,6 @@ public class bacsiDAL {
 		bacsi std = null;
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
 				// query
 				String sql = "select * from bac_si where TENBS = ?";
 				PreparedStatement statement = connection.prepareCall(sql);

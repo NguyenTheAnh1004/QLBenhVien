@@ -22,9 +22,7 @@ public class khambenhDAL {
 		List<khambenh> khambenhList = new ArrayList<khambenh>();
 		
 		if(openConnection()) {
-			try {
-	            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-	            
+			try {   
 	            //query
 	            String sql = "select * from kham_benh";
 	            Statement statement = connection.createStatement();
@@ -131,8 +129,6 @@ public class khambenhDAL {
 		
 		if(openConnection()) {
 			try {
-	            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-	            
 	            //query
 	            String sql = "select * from kham_benh where MABN = ?";
 	            PreparedStatement statement = connection.prepareCall(sql);
@@ -160,8 +156,6 @@ public class khambenhDAL {
 		
 		if(openConnection()) {
 			try {
-	            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-	            
 	            //query
 	            String sql = "select * from kham_benh";
 	            Statement statement = connection.createStatement();
@@ -228,9 +222,7 @@ public class khambenhDAL {
 	 public khambenh getkhambenh(int id) {
 		 khambenh std = null;
 		 if(openConnection()) {
-				try {
-		            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-		            
+				try {  
 		            //query
 		            String sql = "select * from kham_benh where SOPHIEUKHAM = ?" ;
 		            PreparedStatement statement = connection.prepareCall(sql);
@@ -257,8 +249,6 @@ public class khambenhDAL {
 			
 			if(openConnection()) {
 				try {
-		            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-		            
 		            //query
 		            String sql = "select * from benh_nhan";
 		            Statement statement = connection.createStatement();
@@ -282,9 +272,7 @@ public class khambenhDAL {
 			List<String> bacsiList = new ArrayList<String>();
 			
 			if(openConnection()) {
-				try {
-		            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-		            
+				try {   
 		            //query
 		            String sql = "select * from bac_si";
 		            Statement statement = connection.createStatement();
@@ -309,8 +297,6 @@ public class khambenhDAL {
 			
 			if(openConnection()) {
 				try {
-		            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-		            
 		            //query
 		            String sql = "select * from benh";
 		            Statement statement = connection.createStatement();

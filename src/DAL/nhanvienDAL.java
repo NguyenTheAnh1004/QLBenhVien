@@ -24,9 +24,6 @@ public class nhanvienDAL {
 
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
 				// query
 				String sql = "select * from nhan_vien";
 				Statement statement = connection.createStatement();
@@ -128,9 +125,6 @@ public class nhanvienDAL {
 
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
 				// query
 				String sql = "select * from nhan_vien where TENNV like ?";
 				PreparedStatement statement = connection.prepareCall(sql);
@@ -158,9 +152,6 @@ public class nhanvienDAL {
 
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
 				// query
 				String sql = "select * from nhan_vien";
 				Statement statement = connection.createStatement();
@@ -229,9 +220,6 @@ public class nhanvienDAL {
 		nhanvien std = null;
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
 				// query
 				String sql = "select * from nhan_vien where TENNV = ?";
 				PreparedStatement statement = connection.prepareCall(sql);

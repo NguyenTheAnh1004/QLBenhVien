@@ -23,8 +23,6 @@ public class benhnhanDAL {
 		
 		if(openConnection()) {
 			try {
-	            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-	            
 	            //query
 	            String sql = "select * from benh_nhan";
 	            Statement statement = connection.createStatement();
@@ -132,8 +130,6 @@ public class benhnhanDAL {
 		
 		if(openConnection()) {
 			try {
-	            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-	            
 	            //query
 	            String sql = "select * from benh_nhan where TENBN like ?";
 	            PreparedStatement statement = connection.prepareCall(sql);
@@ -160,9 +156,7 @@ public class benhnhanDAL {
 		List<String> benh_nhanList = new ArrayList<String>();
 		
 		if(openConnection()) {
-			try {
-	            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root", "");
-	            
+			try {  
 	            //query
 	            String sql = "select * from benh_nhan";
 	            Statement statement = connection.createStatement();
