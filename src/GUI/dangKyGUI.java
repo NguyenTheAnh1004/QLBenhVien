@@ -119,6 +119,15 @@ public class dangKyGUI extends JFrame {
 		tfPhanQuyen.setColumns(10);
 		tfPhanQuyen.setBounds(424, 35, 96, 21);
 		contentPane.add(tfPhanQuyen);
+		
+		JButton btnNewButton = new JButton("Trở lại");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnNewButton_actionPerformed(e);
+			}
+		});
+		btnNewButton.setBounds(0, 0, 96, 29);
+		contentPane.add(btnNewButton);
 	}
 	protected void do_btnDangKY_actionPerformed(ActionEvent e) {
 		if(tfTaiKhoan.getText().equals("") || String.valueOf(tfMatKhau.getPassword()).equals("") || String.valueOf(tfNhapLaiMK.getPassword()).equals("")) {
@@ -146,5 +155,10 @@ public class dangKyGUI extends JFrame {
 				JOptionPane.showMessageDialog(null, "Nhập đúng định dạng");
 			}
 		}
+	}
+	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
+		loginGUI loginGUI = new loginGUI();
+		loginGUI.setVisible(true);
+		this.setVisible(false);
 	}
 }
