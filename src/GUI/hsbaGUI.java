@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class hsbaGUI extends JFrame {
 	List<hsba> hsbaList = new ArrayList<hsba>();
@@ -92,13 +93,27 @@ public class hsbaGUI extends JFrame {
 		lblNewLabel.setBounds(339, 10, 334, 32);
 		panel.add(lblNewLabel);
 		
+		tfFind = new JTextField();
+		tfFind.setBounds(880, 9, 247, 27);
+		panel.add(tfFind);
+		tfFind.setColumns(10);
+		
+		JButton btnSearch = new JButton("Tìm kiếm");
+		btnSearch.setBounds(1126, 9, 94, 28);
+		panel.add(btnSearch);
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnSearch_actionPerformed(e);
+			}
+		});
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.GREEN);
 		panel_1.setBounds(0, 95, 493, 568);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("M\u00E3 h\u1ED3 s\u01A1");
+		JLabel lblNewLabel_1 = new JLabel("Mã hồ sơ:");
 		lblNewLabel_1.setForeground(Color.BLACK);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1.setBounds(10, 34, 63, 42);
@@ -111,13 +126,13 @@ public class hsbaGUI extends JFrame {
 		tfhsbaCode.setColumns(10);
 		tfhsbaCode.setText(String.valueOf(hsbaBLL.getMaHSMax()));
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Ngày bắt đầu");
+		JLabel lblNewLabel_1_1 = new JLabel("Ngày bắt đầu:");
 		lblNewLabel_1_1.setForeground(Color.BLACK);
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1_1.setBounds(10, 107, 108, 42);
 		panel_1.add(lblNewLabel_1_1);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Ngày kết thúc");
+		JLabel lblNewLabel_1_2 = new JLabel("Ngày kết thúc:");
 		lblNewLabel_1_2.setForeground(Color.BLACK);
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1_2.setBounds(10, 180, 97, 42);
@@ -133,19 +148,19 @@ public class hsbaGUI extends JFrame {
 		tfngaykt.setBounds(176, 182, 286, 42);
 		panel_1.add(tfngaykt);
 		
-		JLabel lblNewLabel_1_2_1 = new JLabel("Kết quả");
+		JLabel lblNewLabel_1_2_1 = new JLabel("Kết quả:");
 		lblNewLabel_1_2_1.setForeground(Color.BLACK);
 		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1_2_1.setBounds(10, 255, 108, 42);
 		panel_1.add(lblNewLabel_1_2_1);
 		
-		JLabel lblNewLabel_1_2_2 = new JLabel("Tên bác sĩ");
+		JLabel lblNewLabel_1_2_2 = new JLabel("Tên bác sĩ:");
 		lblNewLabel_1_2_2.setForeground(Color.BLACK);
 		lblNewLabel_1_2_2.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1_2_2.setBounds(10, 324, 108, 42);
 		panel_1.add(lblNewLabel_1_2_2);
 		
-		JLabel lblNewLabel_1_2_3 = new JLabel("Tên bệnh nhân");
+		JLabel lblNewLabel_1_2_3 = new JLabel("Tên bệnh nhân:");
 		lblNewLabel_1_2_3.setForeground(Color.BLACK);
 		lblNewLabel_1_2_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1_2_3.setBounds(10, 393, 108, 42);
@@ -211,20 +226,6 @@ public class hsbaGUI extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
-		
-		tfFind = new JTextField();
-		tfFind.setBounds(808, 10, 247, 27);
-		contentPane.add(tfFind);
-		tfFind.setColumns(10);
-		
-		JButton btnSearch = new JButton("Tìm kiếm");
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				do_btnSearch_actionPerformed(e);
-			}
-		});
-		btnSearch.setBounds(1055, 9, 94, 28);
-		contentPane.add(btnSearch);
 		loadDataColum();
 		displayList();
 		
@@ -235,6 +236,7 @@ public class hsbaGUI extends JFrame {
 			}
 		});
 		btnGoBack.setBounds(0, 0, 106, 48);
+		
 		contentPane.add(btnGoBack);
 		
 	}

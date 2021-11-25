@@ -170,12 +170,13 @@ public class adminGUI extends JFrame {
 		contentPane.add(lblNewLabel_2);
 
 		JButton btnlogout = new JButton("Đăng xuất");
+		btnlogout.setIcon(new ImageIcon("Image\\logout-7-32.png"));
 		btnlogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnlogout_actionPerformed(e);
 			}
 		});
-		btnlogout.setBounds(776, 103, 110, 30);
+		btnlogout.setBounds(746, 92, 140, 30);
 		contentPane.add(btnlogout);
 	}
 

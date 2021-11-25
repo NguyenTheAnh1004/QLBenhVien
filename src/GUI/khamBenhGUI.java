@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import BLL.dichvuBLL;
 import BLL.khambenhBLL;
 import Check.Tester;
 import DTO.bacsi;
@@ -33,6 +34,7 @@ import DTO.khambenh;
 public class khamBenhGUI extends JFrame {
 	List<khambenh> khamBenhList = new ArrayList<khambenh>();
 	khambenhBLL kbBLL = new khambenhBLL();
+	dichvuBLL dvBLL = new dichvuBLL();
 
 	private JPanel contentPane;
 	private JTextField tfngaykham;
@@ -42,12 +44,14 @@ public class khamBenhGUI extends JFrame {
 	DefaultTableModel model = new DefaultTableModel();
 	private JComboBox cbBenhnhan;
 	List<String> benhnhanList = kbBLL.getbenhnhanList();
-	private JTextField tfsophongkham;
 	private JTextField tfsophieukham;
 	private JComboBox cbBacsi;
 	List<String> bacsiList = kbBLL.getbacsiList();
 	private JComboBox cbMaBenh;
 	List<String> maBenhList = kbBLL.getMabenh();
+	private JComboBox cbMaDv;
+	List<String> dichvuList = dvBLL.getdichvuList();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -202,19 +206,14 @@ public class khamBenhGUI extends JFrame {
 		panel_1.add(cbBacsi);
 		
 		cbMaBenh = new JComboBox(maBenhList.toArray());
-		cbMaBenh.setBounds(157, 309, 299, 33);
+		cbMaBenh.setBounds(157, 319, 299, 33);
 		panel_1.add(cbMaBenh);
 		
-		JLabel lblNewLabel_1_2_3_1 = new JLabel("Chi phí khám ");
+		JLabel lblNewLabel_1_2_3_1 = new JLabel("Dịch vụ");
 		lblNewLabel_1_2_3_1.setForeground(Color.BLACK);
 		lblNewLabel_1_2_3_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1_2_3_1.setBounds(26, 370, 97, 42);
 		panel_1.add(lblNewLabel_1_2_3_1);
-		
-		tfsophongkham = new JTextField();
-		tfsophongkham.setColumns(10);
-		tfsophongkham.setBounds(157, 370, 299, 32);
-		panel_1.add(tfsophongkham);
 		
 		tfsophieukham = new JTextField();
 		tfsophieukham.setEditable(false);
@@ -222,6 +221,10 @@ public class khamBenhGUI extends JFrame {
 		tfsophieukham.setBounds(157, 34, 299, 32);
 		panel_1.add(tfsophieukham);
 		tfsophieukham.setText(String.valueOf(kbBLL.getSPKMAX()));
+		
+		cbMaDv = new JComboBox(dichvuList.toArray());
+		cbMaDv.setBounds(157, 370, 299, 33);
+		panel_1.add(cbMaDv);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(492, 95, 728, 568);
@@ -253,11 +256,11 @@ public class khamBenhGUI extends JFrame {
 		model.addColumn("Mã bác sĩ");
 		model.addColumn("Mã bệnh nhân");
 		model.addColumn("Mã bệnh");
-		model.addColumn("Chi phí khám");
+		model.addColumn("Mã dịch vụ");
 		displayList();
 	}
 	protected void do_btnAdd_actionPerformed(ActionEvent e) {
-		if(!tfsophieukham.getText().trim().equals("") && !tfngaykham.getText().trim().equals("") && !tfTrieutrung.getText().trim().equals("") && !tfsophongkham.getText().trim().equals("")) {
+		if(!tfsophieukham.getText().trim().equals("") && !tfngaykham.getText().trim().equals("") && !tfTrieutrung.getText().trim().equals("")) {
 			try {
 				int sophieukham=  Integer.parseInt(tfsophieukham.getText());
 				String ngaykham = tfngaykham.getText();
@@ -276,8 +279,9 @@ public class khamBenhGUI extends JFrame {
 				int mabs = kbBLL.getData("bac_si", "MABS", tenBs, "TENBS");
 				
 				String trieutrung = tfTrieutrung.getText();
-				int sophongkham =Integer.parseInt(tfsophongkham.getText());
-				khambenh kb=new khambenh(sophieukham,ngaykham,trieutrung,mabs,mabn,mabenh,sophongkham);				
+				String tenDv = String.valueOf(cbMaDv.getSelectedItem());
+				int maDV = kbBLL.getData("dich_vu", "MADV", tenDv, "TENDV");
+				khambenh kb=new khambenh(sophieukham,ngaykham,trieutrung,mabs,mabn,mabenh,maDV);				
 				JOptionPane.showMessageDialog(null,kbBLL.addkhambenh(kb));
 				displayList();
 				do_btnReset_actionPerformed(e);
@@ -297,14 +301,14 @@ public class khamBenhGUI extends JFrame {
 		cbBenhnhan.setSelectedIndex(0);
 		cbMaBenh.setSelectedIndex(0);
 		tfsophieukham.setText(String.valueOf(kbBLL.getSPKMAX()));
-		tfsophongkham.setText("");
+		cbMaDv.setSelectedIndex(0);
 		displayList();
 	}
 	
 	protected void do_btnEdit_actionPerformed(ActionEvent e) {
 		try {
 			int index = table.getSelectedRow();
-			if(index>=0 && !tfsophieukham.getText().trim().equals("") && !tfngaykham.getText().trim().equals("") && !tfTrieutrung.getText().trim().equals("") && !tfsophongkham.getText().trim().equals("")) {
+			if(index>=0 && !tfsophieukham.getText().trim().equals("") && !tfngaykham.getText().trim().equals("") && !tfTrieutrung.getText().trim().equals("")) {
 				khambenh p = new khambenh();
 				
 				p.setSophieukham(Integer.parseInt(tfsophieukham.getText()));
@@ -323,7 +327,9 @@ public class khamBenhGUI extends JFrame {
 				int mabs = kbBLL.getData("bac_si", "MABS", tenBs, "TENBS");
 				p.setMabs(mabs);
 	
-				p.setSophongkham(Integer.parseInt(tfsophongkham.getText()));
+				String tenDichvu = String.valueOf(cbMaDv.getSelectedItem().toString());
+				int maDV = kbBLL.getData("dich_vu", "MADV", tenDichvu, "TENDV");
+				p.setMadv(maDV);
 				
 				JOptionPane.showMessageDialog(null, kbBLL.editkhambenh(p));
 				displayList();
@@ -374,7 +380,7 @@ public class khamBenhGUI extends JFrame {
 	    		while(i < khamBenhList.size()) {
 	    			khambenh p = khamBenhList.get(i);
 	    			model.addRow(new Object [] {
-	    					model.getRowCount()+1, p.getSophieukham(), p.getNgaykham(), p.getTrieutrung(), p.getMabs(),p.getMabn(), p.getMabenh(),p.getSophongkham()
+	    					model.getRowCount()+1, p.getSophieukham(), p.getNgaykham(), p.getTrieutrung(), p.getMabs(),p.getMabn(), p.getMabenh(),p.getMadv()
 	    			});
 	    			i++;
 	    		}
@@ -411,7 +417,7 @@ public class khamBenhGUI extends JFrame {
 		while(i < khamBenhList.size()) {
 			khambenh p = khamBenhList.get(i);
 			model.addRow(new Object [] {
-					model.getRowCount()+1, p.getSophieukham(), p.getNgaykham(), p.getTrieutrung(), p.getMabs(),p.getMabn(), p.getMabenh(),p.getSophongkham()
+					model.getRowCount()+1, p.getSophieukham(), p.getNgaykham(), p.getTrieutrung(), p.getMabs(),p.getMabn(), p.getMabenh(),p.getMadv()
 			});
 			i++;
 		}
@@ -436,7 +442,9 @@ public class khamBenhGUI extends JFrame {
     		String tenBenh = kbBLL.getData1("benh", "TEN_BENH", maBenh, "MA_BENH");
     		cbMaBenh.setSelectedItem(String.valueOf(tenBenh));
     		
-    		tfsophongkham.setText(String.valueOf(model.getValueAt(selectedIndex, 7)));
+    		String maDv = model.getValueAt(selectedIndex, 7).toString();
+    		String tenDv = kbBLL.getData1("dich_vu", "TENDV", maDv, "MADV");
+    		cbMaDv.setSelectedItem(tenDv.toString());
         }
 	}
 	

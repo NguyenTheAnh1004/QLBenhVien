@@ -41,7 +41,7 @@ public class quantriGUI extends JFrame {
 	 */
 	public quantriGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 629);
+		setBounds(300, 100, 900, 629);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -129,12 +129,13 @@ public class quantriGUI extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		JButton btnlogout = new JButton("Đăng xuất");
+		btnlogout.setIcon(new ImageIcon("Image\\logout-7-32.png"));
 		btnlogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnlogout_actionPerformed(e);
 			}
 		});
-		btnlogout.setBounds(764, 103, 110, 30);
+		btnlogout.setBounds(755, 92, 131, 30);
 		contentPane.add(btnlogout);
 	}
 

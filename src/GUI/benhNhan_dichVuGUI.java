@@ -95,7 +95,7 @@ public class benhNhan_dichVuGUI extends JFrame {
 		panel.add(lblNewLabel);
 		
 		tfFind = new JTextField();
-		tfFind.setBounds(813, 10, 221, 30);
+		tfFind.setBounds(918, 10, 221, 30);
 		panel.add(tfFind);
 		tfFind.setColumns(10);
 		
@@ -105,7 +105,7 @@ public class benhNhan_dichVuGUI extends JFrame {
 				do_btnSearch_actionPerformed(e);
 			}
 		});
-		btnSearch.setBounds(1033, 10, 85, 31);
+		btnSearch.setBounds(1135, 10, 85, 31);
 		panel.add(btnSearch);
 		
 		panel_1 = new JPanel();

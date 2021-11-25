@@ -34,7 +34,7 @@ public class khambenhDAL {
 	            while (resultSet.next()) {                
 	            	khambenh std = new khambenh(resultSet.getInt("SOPHIEUKHAM"), 
 	                        resultSet.getString("NGAYKHAM"), resultSet.getString("TRIEUTRUNG"), 
-	                        resultSet.getInt("MABS"),resultSet.getInt("MABN"),resultSet.getInt("MABENH"), resultSet.getInt("SPKHAM"));
+	                        resultSet.getInt("MABS"),resultSet.getInt("MABN"),resultSet.getInt("MABENH"), resultSet.getInt("MADV"));
 	            	khambenhList.add(std);
 	            }
 	        } catch(SQLException e) {
@@ -52,7 +52,7 @@ public class khambenhDAL {
 		if(openConnection()) {
 			try {
 	            //query
-	            String sql = "insert into kham_benh(SOPHIEUKHAM, NGAYKHAM,TRIEUTRUNG,MABS,MABN,MABENH,SPKHAM) values (?, ?, ?, ?,?,?,?)";
+	            String sql = "insert into kham_benh(SOPHIEUKHAM, NGAYKHAM,TRIEUTRUNG,MABS,MABN,MABENH,MADV) values (?, ?, ?, ?,?,?,?)";
 	            PreparedStatement statement = connection.prepareCall(sql);
 	            statement.setInt(1, p.getSophieukham());
 	            statement.setString(2, p.getNgaykham());
@@ -60,7 +60,7 @@ public class khambenhDAL {
 	            statement.setInt(4, p.getMabs());
 	            statement.setInt(5, p.getMabn());
 	            statement.setInt(6, p.getMabenh());
-	            statement.setInt(7, p.getSophongkham());
+	            statement.setInt(7, p.getMadv());
 	            
 	            if(statement.executeUpdate()>=1) {
 	            	result = true;
@@ -81,7 +81,7 @@ public class khambenhDAL {
 		if(openConnection()) {
 			try {
 	            //query
-				String sql = "update kham_benh set NGAYKHAM=?, TRIEUTRUNG=?, MABS=?, MABN=?, MABENH=?, SPKHAM=?  where SOPHIEUKHAM = ?";
+				String sql = "update kham_benh set NGAYKHAM=?, TRIEUTRUNG=?, MABS=?, MABN=?, MABENH=?, MADV=?  where SOPHIEUKHAM = ?";
 	            PreparedStatement statement = connection.prepareCall(sql);
 	            
 	            statement.setString(1, p.getNgaykham());
@@ -89,7 +89,7 @@ public class khambenhDAL {
 	            statement.setInt(3, p.getMabs());
 	            statement.setInt(4, p.getMabn());
 	            statement.setInt(5, p.getMabenh());
-	            statement.setInt(6, p.getSophongkham());
+	            statement.setInt(6, p.getMadv());
 	            statement.setInt(7, p.getSophieukham());
 	            
 	            if(statement.executeUpdate()>=1) {
@@ -143,7 +143,7 @@ public class khambenhDAL {
 	            while (resultSet.next()) {    
 	            	khambenh std = new khambenh(resultSet.getInt("SOPHIEUKHAM"), 
 	                        resultSet.getString("NGAYKHAM"), resultSet.getString("TRIEUTRUNG"), 
-	                        resultSet.getInt("MABS"),resultSet.getInt("MABN"),resultSet.getInt("MABENH"), resultSet.getInt("SPKHAM"));
+	                        resultSet.getInt("MABS"),resultSet.getInt("MABN"),resultSet.getInt("MABENH"), resultSet.getInt("MADV"));
 	            	khambenhList.add(std);
 	            }
 	        } catch(SQLException e) {
@@ -241,7 +241,7 @@ public class khambenhDAL {
 		            while (resultSet.next()) {    
 		            	std = new khambenh(resultSet.getInt("SOPHIEUKHAM"), 
 		                        resultSet.getString("NGAYKHAM"), resultSet.getString("TRIEUTRUNG"), 
-		                        resultSet.getInt("MABS"),resultSet.getInt("MABN"),resultSet.getInt("MABENH"), resultSet.getInt("SPKHAM"));
+		                        resultSet.getInt("MABS"),resultSet.getInt("MABN"),resultSet.getInt("MABENH"), resultSet.getInt("MADV"));
 		            }
 		        } catch(SQLException e) {
 		        	System.out.println(e);

@@ -5,7 +5,7 @@ public class khambenh {
 	private String ngaykham;
 	private String trieutrung;
 	private int mabenh;
-	private int sophongkham;
+	private int madv;
 	private int mabn;
 	private int mabs;
 	
@@ -15,18 +15,18 @@ public class khambenh {
 		this.ngaykham=null;
 		this.trieutrung=null;
 		this.mabenh=0;
-		this.sophongkham=0;
+		this.madv=0;
 	}
 
 	
-	public khambenh(int sophieukham, String ngaykham, String trieutrung,int mabs, int mabn, int mabenh, int sophongkham) {
+	public khambenh(int sophieukham, String ngaykham, String trieutrung,int mabs, int mabn, int mabenh, int madv) {
 		this.sophieukham = sophieukham;
 		this.ngaykham = ngaykham;
 		this.trieutrung = trieutrung;
 		this.mabs=mabs;
 		this.mabn=mabn;
 		this.mabenh = mabenh;
-		this.sophongkham = sophongkham;
+		this.madv = madv;
 	}
 
 	public int getMabn() {
@@ -77,12 +77,12 @@ public class khambenh {
 		this.mabenh = mabenh;
 	}
 
-	public int getSophongkham() {
-		return sophongkham;
+	public int getMadv() {
+		return madv;
 	}
 
-	public void setSophongkham(int sophongkham) {
-		this.sophongkham = sophongkham;
+	public void setMadv(int madv) {
+		this.madv = madv;
 	}
 	
 }
