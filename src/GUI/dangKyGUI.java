@@ -59,7 +59,7 @@ public class dangKyGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(470, 150, 647, 487);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.GREEN);
+		contentPane.setBackground(Color.CYAN);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

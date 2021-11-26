@@ -72,7 +72,7 @@ public class bacsiGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(150, 100, 1234, 695);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.GREEN);
+		contentPane.setBackground(Color.CYAN);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -90,7 +90,7 @@ public class bacsiGUI extends JFrame {
 		panel.add(lblNewLabel);
 		
 		tfFind = new JTextField();
-		tfFind.setBounds(813, 10, 221, 30);
+		tfFind.setBounds(875, 10, 221, 30);
 		panel.add(tfFind);
 		tfFind.setColumns(10);
 		
@@ -100,11 +100,11 @@ public class bacsiGUI extends JFrame {
 				do_btnSearch_actionPerformed(e);
 			}
 		});
-		btnSearch.setBounds(1033, 10, 85, 31);
+		btnSearch.setBounds(1125, 9, 85, 31);
 		panel.add(btnSearch);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.GREEN);
+		panel_1.setBackground(Color.CYAN);
 		panel_1.setBounds(0, 95, 493, 568);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
@@ -300,6 +300,7 @@ public class bacsiGUI extends JFrame {
 		cbGioiTinh.setSelectedIndex(0);
 		tfbacsiBirthday.setText("");
 		tfbacsiCode.setText(String.valueOf(bsBLL.getMaBSMax()));
+		displayList();
 	}
 	protected void do_table_mouseClicked(MouseEvent e) {
 		int selectedIndex = table.getSelectedRow();
@@ -324,6 +325,10 @@ public class bacsiGUI extends JFrame {
 				p.setGioitinh(cbGioiTinh.getSelectedItem().toString());
 				p.setNgaysinh(tfbacsiBirthday.getText());
 				Tester t = new Tester();
+				if(!t.day(tfbacsiBirthday.getText())) {
+					JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ");
+					return ;
+				}
 				if(!t.numberPhone(tfDienthoai.getText())) {
 					JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ");
 					return ;

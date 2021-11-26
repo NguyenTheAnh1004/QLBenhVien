@@ -76,7 +76,7 @@ public class khamBenhGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(120, 100, 1234, 695);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.GREEN);
+		contentPane.setBackground(Color.CYAN);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -109,7 +109,7 @@ public class khamBenhGUI extends JFrame {
 		panel.add(btnSearch);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.GREEN);
+		panel_1.setBackground(Color.CYAN);
 		panel_1.setBounds(0, 95, 493, 568);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);

@@ -72,7 +72,7 @@ public class accountGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(150, 100, 1234, 695);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.GREEN);
+		contentPane.setBackground(Color.CYAN);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -86,25 +86,11 @@ public class accountGUI extends JFrame {
 		JLabel lblNewLabel = new JLabel("DANH SÁCH TÀI KHOẢN");
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 21));
-		lblNewLabel.setBounds(339, 10, 334, 32);
+		lblNewLabel.setBounds(420, 0, 334, 32);
 		panel.add(lblNewLabel);
 
-		tfFind = new JTextField();
-		tfFind.setBounds(898, 10, 221, 30);
-		panel.add(tfFind);
-		tfFind.setColumns(10);
-
-		JButton btnSearch = new JButton("Tìm kiếm");
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				do_btnSearch_actionPerformed(e);
-			}
-		});
-		btnSearch.setBounds(1125, 10, 85, 31);
-		panel.add(btnSearch);
-
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.GREEN);
+		panel_1.setBackground(Color.CYAN);
 		panel_1.setBounds(0, 95, 493, 568);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
@@ -160,7 +146,7 @@ public class accountGUI extends JFrame {
 				do_btnReset_actionPerformed(e);
 			}
 		});
-		btnReset.setBounds(26, 464, 85, 42);
+		btnReset.setBounds(26, 391, 85, 42);
 		panel_1.add(btnReset);
 
 		JButton btnRemove = new JButton("Xóa");
@@ -169,7 +155,7 @@ public class accountGUI extends JFrame {
 				do_btnRemove_actionPerformed(e);
 			}
 		});
-		btnRemove.setBounds(140, 464, 85, 42);
+		btnRemove.setBounds(150, 391, 85, 42);
 		panel_1.add(btnRemove);
 
 		JButton btnEdit = new JButton("Sửa");
@@ -178,7 +164,7 @@ public class accountGUI extends JFrame {
 				do_btnEdit_actionPerformed(e);
 			}
 		});
-		btnEdit.setBounds(254, 464, 85, 42);
+		btnEdit.setBounds(261, 391, 85, 42);
 		panel_1.add(btnEdit);
 
 		JButton btnAdd = new JButton("Thêm");
@@ -187,8 +173,22 @@ public class accountGUI extends JFrame {
 				do_btnAdd_actionPerformed(e);
 			}
 		});
-		btnAdd.setBounds(371, 464, 85, 42);
+		btnAdd.setBounds(356, 391, 100, 42);
 		panel_1.add(btnAdd);
+		
+				tfFind = new JTextField();
+				tfFind.setBounds(26, 468, 313, 30);
+				panel_1.add(tfFind);
+				tfFind.setColumns(10);
+				
+						JButton btnSearch = new JButton("Tìm kiếm");
+						btnSearch.setBounds(349, 467, 107, 31);
+						panel_1.add(btnSearch);
+						btnSearch.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								do_btnSearch_actionPerformed(e);
+							}
+						});
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(492, 95, 728, 568);

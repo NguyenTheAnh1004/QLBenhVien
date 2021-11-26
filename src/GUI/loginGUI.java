@@ -64,7 +64,7 @@ public class loginGUI extends JFrame {
 		setBounds(400, 150, 752, 456);
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.WHITE);
-		contentPane.setBackground(Color.GREEN);
+		contentPane.setBackground(Color.CYAN);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -118,7 +118,7 @@ public class loginGUI extends JFrame {
 		});
 		btnDangKy.setForeground(Color.RED);
 		btnDangKy.setBorder(null);
-		btnDangKy.setBackground(Color.GREEN);
+		btnDangKy.setBackground(Color.CYAN);
 		btnDangKy.setBounds(609, 358, 85, 21);
 		contentPane.add(btnDangKy);
 		
