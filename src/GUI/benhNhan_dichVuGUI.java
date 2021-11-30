@@ -31,6 +31,7 @@ import BLL.khambenhBLL;
 import Check.Tester;
 import DTO.benhnhan;
 import DTO.benhNhan_DichVu;
+import javax.swing.JMenuBar;
 
 public class benhNhan_dichVuGUI extends JFrame {
 	List<benhNhan_DichVu> list = new ArrayList<benhNhan_DichVu>();
@@ -107,6 +108,10 @@ public class benhNhan_dichVuGUI extends JFrame {
 		});
 		btnSearch.setBounds(1135, 10, 85, 31);
 		panel.add(btnSearch);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(10, 15, 101, 22);
+		panel.add(menuBar);
 		
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.CYAN);

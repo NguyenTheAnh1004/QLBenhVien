@@ -5,8 +5,12 @@ import java.util.List;
 import DAL.khambenhDAL;
 import DTO.khambenh;
 
+import DTO.bienlai;
+import DAL.bienlaiDAL;
+
 public class khambenhBLL {
 	khambenhDAL khambenhDAL = new khambenhDAL();
+	bienlaiDAL blDAL = new bienlaiDAL();
 	
 	public List<khambenh> getAllkhambenh() {
 		return khambenhDAL.findAll();
@@ -36,9 +40,20 @@ public class khambenhBLL {
 		return "Sửa thông tin phiếu khám bệnh không thành công";
 	}
 	
+	public String thanhtoan(bienlai p, int maBN) {
+		if(blDAL.insert(p) && khambenhDAL.updatethanhtoan(maBN)) {
+			return "Thanh toán thành công";	
+		}
+		else return "Thanh toán không thành công";
+	}
+	
 	
 	public List<khambenh> searchkhambenhs(int maBN) {
 		return khambenhDAL.findBysophieukham(maBN);
+	}
+	
+	public int prince(int maBN) {
+		return khambenhDAL.prince(maBN);
 	}
 	
 	public List<String> getkhambenhList() {

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import DTO.benhNhan_DichVu;
 import DTO.bienlai;
 import DTO.dichvu;
+import DTO.khambenh;
 
 
 // chưa tối ưu hóa code ở đây
@@ -24,45 +25,39 @@ public class bienlaiDAL {
 	// lấy tất cả oke 
 	public List<bienlai> findAll() {
 		List<bienlai> bienlaiList = new ArrayList<bienlai>();
-		
-		if(openConnection()) {
+
+		if (openConnection()) {
 			try {
-	            //query
-	            String sql = "select * from bien_lai";
-	            Statement statement = connection.createStatement();
-	            
-	            ResultSet resultSet = statement.executeQuery(sql);
-	           
-	            while (resultSet.next()) {                
-	            	bienlai std = new bienlai(resultSet.getInt("SO_BL"), 
-	                        resultSet.getString("NGAY_THANH_TOAN"), resultSet.getInt("TONG_TIEN"), 
-	                         resultSet.getInt("MA_NV"), 
-	                         resultSet.getInt("MA_BN"));
-	            	bienlaiList.add(std);
-	            }
-	        } catch(SQLException e) {
-	        	System.out.println(e);
-	        }
-			finally {
+				// query
+				String sql = "SELECT * FROM bien_lai";
+				Statement statement = connection.createStatement();
+
+				ResultSet resultSet = statement.executeQuery(sql);
+
+				while (resultSet.next()) {
+					bienlai std = new bienlai(resultSet.getInt("SO_BL"),resultSet.getString("NGAY_THANH_TOAN"),resultSet.getInt("TONG_TIEN"),resultSet.getString("tenBenhNhan"));
+					bienlaiList.add(std);
+				}
+			} catch (SQLException e) {
+				System.out.println(e);
+			} finally {
 				closeConnection();
 			}
 		}
 		return bienlaiList;
 	}
-	
 	public boolean insert(bienlai p) {
 		boolean result = false;
 		if(openConnection()) {
 			try {
 	            //query
-	            String sql = "insert into bien_lai(SO_BL, NGAY_THANH_TOAN, TONG_TIEN, MA_NV, MA_BN) values (?, ?, ?, ?, ?)";
+	            String sql = "insert into bien_lai(SO_BL, NGAY_THANH_TOAN, TONG_TIEN, tenBenhNhan) values (?, ?, ?, ?)";
 	            PreparedStatement statement = connection.prepareCall(sql);
-	            
 	            statement.setInt(1, p.getSoBienLai());
 	            statement.setString(2, p.getNgayThanhToan());
-	            statement.setDouble(3, p.getTongTien());
-	            statement.setInt(4, p.getMaNV());
-	            statement.setInt(5, p.getMaBN());
+	            statement.setInt(3, p.getTongTien());
+	            statement.setString(4, p.getTenBenhNhan());
+				
 	            
 	            if(statement.executeUpdate()>=1) {
 	            	result = true;
@@ -77,33 +72,6 @@ public class bienlaiDAL {
 		return result;
 	}
 	
-	 // sửa oke
-	public boolean update(bienlai p) {
-		boolean result = false;
-		if(openConnection()) {
-			try {
-	            //query
-				String sql = "update bien_lai set NGAY_THANH_TOAN=?, TONG_TIEN=?, MA_NV=?, MA_BN=? where SO_BL = ?";
-	            PreparedStatement statement = connection.prepareCall(sql);
-	            
-	            statement.setString(1, p.getNgayThanhToan());
-	            statement.setDouble(2, p.getTongTien());
-	            statement.setInt(3, p.getMaNV());
-	            statement.setInt(4, p.getMaBN());
-	            statement.setInt(5, p.getSoBienLai());
-	            
-	            if(statement.executeUpdate()>=1) {
-	            	result = true;
-	            }
-	        } catch (SQLException e) {
-	        	System.out.println(e);
-	        }
-			finally {
-				closeConnection();
-			}
-		}
-		return result;
-	}
 	public boolean delete(int id) {
 		boolean result = false;
 		if(openConnection()) {
@@ -127,24 +95,21 @@ public class bienlaiDAL {
 		return result;
 	}
 	
-	public List<bienlai> findByFullName(int productName) {
+	public List<bienlai> findByName(String Name) {
 		List<bienlai> bienlaiList = new ArrayList<bienlai>();
 		
 		if(openConnection()) {
 			try {
 	            //query
-	            String sql = "select * from bien_lai where MA_BN = ?";
+	            String sql = "select * from bien_lai where tenBenhNhan like ?";
 	            PreparedStatement statement = connection.prepareCall(sql);
-	            statement.setInt(1, productName);
+	            statement.setString(1, "%" + Name + "%");
 	            
 	            ResultSet resultSet = statement.executeQuery();
 	            
 	            while (resultSet.next()) {                
-	            	bienlai std = new bienlai(resultSet.getInt("SO_BL"), 
-	                        resultSet.getString("NGAY_THANH_TOAN"), resultSet.getInt("TONG_TIEN"), 
-	                         resultSet.getInt("MA_NV"), 
-	                         resultSet.getInt("MA_BN"));
-	            	bienlaiList.add(std);
+	            	bienlai std = new bienlai(resultSet.getInt("SO_BL"),resultSet.getString("NGAY_THANH_TOAN"),resultSet.getInt("TONG_TIEN"),resultSet.getString("tenBenhNhan"));
+					bienlaiList.add(std);
 	            }
 	        } catch(SQLException e) {
 	        	System.out.println(e);
@@ -156,127 +121,56 @@ public class bienlaiDAL {
 		return bienlaiList;
 	}
 	
-//	public List<String> getALLEmployee() {
-//		List<String> employeeList = new ArrayList<String>();
-//		
-//		if(dc.openConnection()) {
-//			try {
-//	            
-//	            //query
-//	            String sql = "select * from employee";
-//	            Statement statement = dc.connection.createStatement();
-//	            
-//	            ResultSet resultSet = statement.executeQuery(sql);
-//	           
-//	            while (resultSet.next()) {                
-//	            	String std = resultSet.getString("EMPLOYEE_CODE");
-//	            	employeeList.add(std);
-//	            }
-//	        } catch(SQLException e) {
-//	        	System.out.println(e);
-//	        }
-//			finally {
-//				dc.closeConnection();
-//			}
-//		}
-//		return employeeList;
-//	}
-//	
-//	public List<String> getALLDoctor() {
-//		List<String> employeeList = new ArrayList<String>();
-//		
-//		if(dc.openConnection()) {
-//			try {
-//	            
-//	            //query
-//	            String sql = "select * from doctor";
-//	            Statement statement = dc.connection.createStatement();
-//	            
-//	            ResultSet resultSet = statement.executeQuery(sql);
-//	           
-//	            while (resultSet.next()) {                
-//	            	String std = resultSet.getString("DOCTOR_NAME");
-//	            	employeeList.add(std);
-//	            }
-//	        } catch(SQLException e) {
-//	        	System.out.println(e);
-//	        }
-//			finally {
-//				dc.closeConnection();
-//			}
-//		}
-//		return employeeList;
-//	}
-	public boolean hasBienlai(bienlai p) {
-		 boolean result = false;
-		 
-		 if(openConnection()) {
-				try {
-		            //query
-		            String sql = "select * from bien_lai where SO_BL=" + p.getSoBienLai();
-		            Statement statement = connection.createStatement();
-		            
-		            ResultSet resultSet = statement.executeQuery(sql);
-		           
-		            result = resultSet.next();
-		        } catch(SQLException e) {
-		        	System.out.println(e);
-		        }
-				finally {
-					closeConnection();
-				}
-			}
-		 
-		 return result;
-	 }
-	
-	public double getPrice(int maBn) {
-		double price=0, total=0;
-		int amount = 0;
-		if(openConnection()) {
+	public boolean update(bienlai p) {
+		boolean result = false;
+		if (openConnection()) {
 			try {
-	            //lấy giá của dịch vụ 
-	            String sql = "select GIA from dich_vu, benhnhan_dichvu where dich_vu.MADV = benhnhan_dichvu.MADV and benhnhan_dichvu.MA_BN = " + maBn;
-	            Statement statement = connection.createStatement();
-	            
-	            ResultSet resultSet = statement.executeQuery(sql);
-	           
-	            while(resultSet.next()) {
-	            	price = resultSet.getDouble("GIA"); // cái này đang nhận giá trị cuối của bảng bệnh nhân dịch vụ
-	            	amount = getAmount(maBn); 
-	            	total = total + price * amount;
-	            }
-	        } catch(SQLException e) {
-	        	System.out.println(e);
-	        }
-			finally {
+				// query
+				String sql = "UPDATE bien_lai SET NGAY_THANH_TOAN = ?, TONG_TIEN = ?, tenBenhNhan = ? WHERE SO_BL = ?";
+				PreparedStatement statement = connection.prepareCall(sql);
+
+				statement.setString(1, p.getNgayThanhToan());
+				statement.setInt(2, p.getTongTien());
+				statement.setString(3, p.getTenBenhNhan());
+				statement.setInt(4, p.getSoBienLai());
+				
+				if (statement.executeUpdate() >= 1) {
+					result = true;
+				}
+			} catch (SQLException e) {
+				System.out.println(e);
+			} finally {
 				closeConnection();
 			}
 		}
-		return total;
+		return result;
 	}
 	
-	public int getAmount(int maBn) {
-		int amount = 0;
-		if(openConnection()) {
+	public int getBLMax() {
+		int Id = -1;
+
+		if (openConnection()) {
 			try {
-		        // lấy số lượng của dịch vụ mà bệnh nhân sử dụng
-			    String sql1 = "select SOLUONGDV from benhnhan_dichvu where benhnhan_dichvu.MA_BN = " + maBn; 
-            	Statement statement1 = connection.createStatement();
-            	ResultSet resultSet1 = statement1.executeQuery(sql1);
-            	while(resultSet1.next()) {
-            		amount = resultSet1.getInt("SOLUONGDV");
-            		return amount;
+				// query
+				String sql = "select MAX(SO_BL) from bien_lai";
+				PreparedStatement statement = connection.prepareCall(sql);
+
+				ResultSet resultSet = statement.executeQuery();
+
+				while (resultSet.next()) {
+					Id = resultSet.getInt("MAX(SO_BL)") + 1;
 				}
-	        } catch(SQLException e) {
-	        	System.out.println(e);
-	        }
-			finally {
+			} catch (SQLException e) {
+				System.out.println(e);
+			} finally {
 				closeConnection();
 			}
 		}
-		return amount;
+		return Id;
 	}
+	
+
+
 	
 	public boolean openConnection() {
 		try {

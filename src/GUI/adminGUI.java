@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 public class adminGUI extends JFrame {
 
 	private JPanel contentPane;
+	private JButton btnBienLai;
 
 	/**
 	 * Launch the application.
@@ -140,12 +141,17 @@ public class adminGUI extends JFrame {
 		btnNewButton_6.setBounds(0, 432, 214, 58);
 		contentPane.add(btnNewButton_6);
 
-		JButton btnNewButton_7 = new JButton("B\u00E1o c\u00E1o");
-		btnNewButton_7.setIcon(new ImageIcon("Image\\statistic-2-32.png"));
-		btnNewButton_7.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton_7.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNewButton_7.setBounds(0, 489, 214, 58);
-		contentPane.add(btnNewButton_7);
+		btnBienLai = new JButton("Biên lai");
+		btnBienLai.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnBienLai_actionPerformed(e);
+			}
+		});
+		btnBienLai.setIcon(new ImageIcon("Image\\statistic-2-32.png"));
+		btnBienLai.setHorizontalAlignment(SwingConstants.LEFT);
+		btnBienLai.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnBienLai.setBounds(0, 489, 214, 58);
+		contentPane.add(btnBienLai);
 
 		JButton btnNewButton_8 = new JButton("H\u1ED3 s\u01A1 b\u1EC7nh \u00E1n");
 		btnNewButton_8.addActionListener(new ActionListener() {
@@ -232,5 +238,8 @@ public class adminGUI extends JFrame {
 		benhNhan_dichVuGUI benhNhan_dichVuGUI = new benhNhan_dichVuGUI();
 		benhNhan_dichVuGUI.setVisible(true);
 		this.setVisible(false);
+	}
+	protected void do_btnBienLai_actionPerformed(ActionEvent e) {
+		
 	}
 }

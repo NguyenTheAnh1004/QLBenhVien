@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import BLL.*;
+import Check.Tester;
 import DAL.*;
 import DTO.*;
 
@@ -276,7 +277,11 @@ public class hsbaGUI extends JFrame {
 				
 				String tenBs = String.valueOf(cbBacsi.getSelectedItem().toString());
 				int mabs = kbBLL.getData("bac_si", "MABS", tenBs, "TENBS");
-				
+				Tester t = new Tester();
+				if(!t.day(ngaybd) || !t.day(ngaykt)) {
+					JOptionPane.showMessageDialog(null, "Ngày không hợp lệ");
+					return ;
+				}
 				hsba s=new hsba(code,ngaybd,ngaykt,ketqua,mabs,mabn);
 				JOptionPane.showMessageDialog(null,hsbaBLL.addhsba(s));
 				displayList();
@@ -315,7 +320,11 @@ public class hsbaGUI extends JFrame {
 				String tenBs = String.valueOf(cbBacsi.getSelectedItem().toString());
 				int mabs = kbBLL.getData("bac_si", "MABS", tenBs, "TENBS");
 				p.setMabs(mabs);
-				
+				Tester t = new Tester();
+				if(!t.day(tfngaybd.getText()) || !t.day(tfngaykt.getText())) {
+					JOptionPane.showMessageDialog(null, "Ngày không hợp lệ");
+					return ;
+				}
 				JOptionPane.showMessageDialog(null, hsbaBLL.edithsba(p));
 				displayList();
 				do_btnReset_actionPerformed(e);

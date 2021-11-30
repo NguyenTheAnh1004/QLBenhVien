@@ -26,10 +26,6 @@ public class hsbaDAL {
 
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
-				// query
 				String sql = "select * from ho_so_benh_an";
 				Statement statement = connection.createStatement();
 
@@ -161,9 +157,6 @@ public class hsbaDAL {
 
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
 				// query
 				String sql = "select * from ho_so_benh_an";
 				Statement statement = connection.createStatement();
@@ -255,10 +248,7 @@ public class hsbaDAL {
 		hsba std = null;
 		if (openConnection()) {
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pttkhttt?useSSL=false", "root",
-						"");
-
-				// query
+			// query
 				String sql = "select * from ho_so_benh_an where MAHS = ?";
 				PreparedStatement statement = connection.prepareCall(sql);
 				statement.setInt(1, id);

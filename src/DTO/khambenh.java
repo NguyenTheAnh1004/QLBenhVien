@@ -8,7 +8,58 @@ public class khambenh {
 	private int madv;
 	private int mabn;
 	private int mabs;
+	private int thanhtoan;
+	private int gia;
 	
+	public int getGia() {
+		return gia;
+	}
+
+
+	public void setGia(int gia) {
+		this.gia = gia;
+	}
+
+
+	public khambenh(int sophieukham, String ngaykham, String trieutrung, int mabs, int mabn, int mabenh, int madv,
+			int thanhtoan, int gia) {
+		super();
+		this.sophieukham = sophieukham;
+		this.ngaykham = ngaykham;
+		this.trieutrung = trieutrung;
+		this.mabenh = mabenh;
+		this.madv = madv;
+		this.mabn = mabn;
+		this.mabs = mabs;
+		this.thanhtoan = thanhtoan;
+		this.gia = gia;
+	}
+
+
+	public khambenh(int sophieukham, String ngaykham, String trieutrung, int mabs, int mabn, int mabenh, int madv,
+			int thanhtoan) {
+		super();
+		this.sophieukham = sophieukham;
+		this.ngaykham = ngaykham;
+		this.trieutrung = trieutrung;
+		this.mabenh = mabenh;
+		this.madv = madv;
+		this.mabn = mabn;
+		this.mabs = mabs;
+		this.thanhtoan = thanhtoan;
+	}
+
+
+	public int getThanhtoan() {
+		return thanhtoan;
+	}
+
+
+	public void setThanhtoan(int thanhtoan) {
+		this.thanhtoan = thanhtoan;
+	}
+
+
 	public khambenh(){
 		super();
 		this.sophieukham=0;
@@ -19,15 +70,7 @@ public class khambenh {
 	}
 
 	
-	public khambenh(int sophieukham, String ngaykham, String trieutrung,int mabs, int mabn, int mabenh, int madv) {
-		this.sophieukham = sophieukham;
-		this.ngaykham = ngaykham;
-		this.trieutrung = trieutrung;
-		this.mabs=mabs;
-		this.mabn=mabn;
-		this.mabenh = mabenh;
-		this.madv = madv;
-	}
+
 
 	public int getMabn() {
 		return mabn;
