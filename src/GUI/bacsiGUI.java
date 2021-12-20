@@ -31,6 +31,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import com.toedter.calendar.JDateChooser;
 
 public class bacsiGUI extends JFrame {
 	List<bacsi> bacsiList = new ArrayList<bacsi>();
@@ -42,12 +47,12 @@ public class bacsiGUI extends JFrame {
 	private JTextField tfbacsiName;
 	private JTextField tfDienthoai;
 	private JTextField tfbacsiAddress;
-	private JTextField tfbacsiBirthday;
 	private JTextField tfFind;
 	private JTable table;
 	DefaultTableModel model = new DefaultTableModel();
 	private JComboBox cbGioiTinh;
-
+	Date dateCurrent = new Date(System.currentTimeMillis());
+	private JDateChooser DCNGAYSINH;
 	/**
 	 * Launch the application.
 	 */
@@ -172,11 +177,6 @@ public class bacsiGUI extends JFrame {
 		cbGioiTinh.setBounds(157, 242, 299, 33);
 		panel_1.add(cbGioiTinh);
 		
-		tfbacsiBirthday = new JTextField();
-		tfbacsiBirthday.setColumns(10);
-		tfbacsiBirthday.setBounds(157, 303, 299, 32);
-		panel_1.add(tfbacsiBirthday);
-		
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -213,6 +213,10 @@ public class bacsiGUI extends JFrame {
 		btnAdd.setBounds(371, 464, 85, 42);
 		panel_1.add(btnAdd);
 		
+		DCNGAYSINH = new JDateChooser();
+		DCNGAYSINH.setBounds(157, 314, 281, 32);
+		panel_1.add(DCNGAYSINH);
+		DCNGAYSINH.setDate(dateCurrent);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(492, 95, 728, 568);
 		contentPane.add(scrollPane);
@@ -263,11 +267,12 @@ public class bacsiGUI extends JFrame {
 		
 	}
 	protected void do_btnAdd_actionPerformed(ActionEvent e) {
-		if(!tfbacsiCode.getText().trim().equals("") && !tfbacsiName.getText().trim().equals("") && !tfbacsiBirthday.getText().trim().equals("") && !tfbacsiAddress.getText().trim().equals("")&& !tfDienthoai.getText().trim().equals("")) {
+		if(!tfbacsiCode.getText().trim().equals("") && !tfbacsiName.getText().trim().equals("") && !tfbacsiAddress.getText().trim().equals("")&& !tfDienthoai.getText().trim().equals("")) {
 			try {
 				int code =  Integer.parseInt(tfbacsiCode.getText());
 				String name = tfbacsiName.getText();
-				String birth =tfbacsiBirthday.getText();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String birth = dateFormat.format(DCNGAYSINH.getDate());				
 				Tester t = new Tester();
 				if(!t.day(birth)) {
 					JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ");
@@ -298,7 +303,7 @@ public class bacsiGUI extends JFrame {
 		tfDienthoai.setText("");
 		tfbacsiAddress.setText("");
 		cbGioiTinh.setSelectedIndex(0);
-		tfbacsiBirthday.setText("");
+		DCNGAYSINH.setDate(dateCurrent);
 		tfbacsiCode.setText(String.valueOf(bsBLL.getMaBSMax()));
 		displayList();
 	}
@@ -310,25 +315,34 @@ public class bacsiGUI extends JFrame {
     		tfDienthoai.setText(String.valueOf(model.getValueAt(selectedIndex, 3)));
     		tfbacsiAddress.setText(String.valueOf(model.getValueAt(selectedIndex, 4)));
             cbGioiTinh.setSelectedItem(String.valueOf(model.getValueAt(selectedIndex, 5)));
-    		tfbacsiBirthday.setText(String.valueOf(model.getValueAt(selectedIndex, 6)));
+            String dd = String.valueOf(model.getValueAt(selectedIndex, 6));
+			String pattern = "dd/mm/yyyy";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+			simpleDateFormat.setLenient(false);
+			try {
+				java.util.Date date = simpleDateFormat.parse(dd);
+				DCNGAYSINH.setDate(date);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
 	}
 	protected void do_btnEdit_actionPerformed(ActionEvent e) {
 		try {
 			int index = table.getSelectedRow();
-			if(index>=0 && !tfbacsiCode.getText().trim().equals("") && !tfbacsiName.getText().trim().equals("") && !tfbacsiBirthday.getText().trim().equals("") && !tfbacsiAddress.getText().trim().equals("")&& !tfDienthoai.getText().trim().equals("")) {
+			if(index>=0 && !tfbacsiCode.getText().trim().equals("") && !tfbacsiName.getText().trim().equals("") &&  !tfbacsiAddress.getText().trim().equals("")&& !tfDienthoai.getText().trim().equals("")) {
 				bacsi p = new bacsi();
 				p.setMabs(Integer.parseInt(tfbacsiCode.getText()));
 				p.setTenbs(tfbacsiName.getText());
 				p.setDienthoai(tfDienthoai.getText());
 				p.setDiachi(tfbacsiAddress.getText());
 				p.setGioitinh(cbGioiTinh.getSelectedItem().toString());
-				p.setNgaysinh(tfbacsiBirthday.getText());
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String ngaykham = dateFormat.format(DCNGAYSINH.getDate());
+				p.setNgaysinh(ngaykham);
 				Tester t = new Tester();
-				if(!t.day(tfbacsiBirthday.getText())) {
-					JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ");
-					return ;
-				}
+				
 				if(!t.numberPhone(tfDienthoai.getText())) {
 					JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ");
 					return ;
@@ -411,5 +425,4 @@ public class bacsiGUI extends JFrame {
 		}
 		this.setVisible(false);
 	}
-	
 }
