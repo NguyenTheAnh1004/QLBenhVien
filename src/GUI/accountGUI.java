@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -30,6 +33,7 @@ import BLL.nhanvienBLL;
 import Check.Tester;
 import DTO.nhanvien;
 import DTO.account;
+import com.toedter.calendar.JDateChooser;
 
 public class accountGUI extends JFrame {
 
@@ -47,6 +51,8 @@ public class accountGUI extends JFrame {
 	private JComboBox cbPhanQuyen;
 
 	String producerList[] = { "Quản trị hệ thống", "Bác sĩ", "Nhân viên" };
+	private JDateChooser dcngaydk;
+	Date dateCurrent = new Date(System.currentTimeMillis());
 
 	/**
 	 * Launch the application.
@@ -116,7 +122,7 @@ public class accountGUI extends JFrame {
 		JLabel lblNewLabel_1_2_4 = new JLabel("Mã tài khoản");
 		lblNewLabel_1_2_4.setForeground(Color.BLACK);
 		lblNewLabel_1_2_4.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_1_2_4.setBounds(26, 259, 97, 42);
+		lblNewLabel_1_2_4.setBounds(26, 312, 97, 42);
 		panel_1.add(lblNewLabel_1_2_4);
 
 		tfAccountName = new JTextField();
@@ -136,7 +142,7 @@ public class accountGUI extends JFrame {
 		tfId = new JTextField();
 		tfId.setEditable(false);
 		tfId.setColumns(10);
-		tfId.setBounds(157, 259, 299, 32);
+		tfId.setBounds(157, 319, 299, 32);
 		panel_1.add(tfId);
 		tfId.setText(String.valueOf(accBBL.getAccountCode()));
 
@@ -184,6 +190,19 @@ public class accountGUI extends JFrame {
 						JButton btnSearch = new JButton("Tìm kiếm");
 						btnSearch.setBounds(349, 467, 107, 31);
 						panel_1.add(btnSearch);
+						
+						JLabel lblNewLabel_1_2_4_1 = new JLabel("Ngày đăng ký");
+						lblNewLabel_1_2_4_1.setForeground(Color.BLACK);
+						lblNewLabel_1_2_4_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+						lblNewLabel_1_2_4_1.setBounds(26, 245, 97, 42);
+						panel_1.add(lblNewLabel_1_2_4_1);
+						
+						dcngaydk = new JDateChooser();
+						dcngaydk.setBounds(157, 245, 299, 31);
+						panel_1.add(dcngaydk);
+						dcngaydk.setDate(dateCurrent);
+						
+						
 						btnSearch.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								do_btnSearch_actionPerformed(e);
@@ -208,6 +227,7 @@ public class accountGUI extends JFrame {
 		model.addColumn("Tên tài khoản");
 		model.addColumn("Mật khẩu");
 		model.addColumn("Phân quyền");
+		model.addColumn("Ngày đăng ký");
 		displayList();
 
 		JButton btnGoBack = new JButton("Trở lại");
@@ -227,7 +247,7 @@ public class accountGUI extends JFrame {
 		while (i < accountList.size()) {
 			account p = accountList.get(i);
 			model.addRow(new Object[] { model.getRowCount() + 1, p.getId(), p.getAccountName(), p.getPassword(),
-					p.getPermission() });
+					p.getPermission(), p.getCreateday() });
 //			if(loginGUI.permission.equals("Quản trị hệ thống") && !p.getPermission().equals("Giám đốc")) { 
 //				model.addRow(new Object [] {
 //						model.getRowCount()+1, p.getId(), p.getAccountName(), p.getPassword(), p.getPermission()
@@ -249,6 +269,7 @@ public class accountGUI extends JFrame {
 		tfFind.setText("");
 		cbPhanQuyen.setSelectedIndex(0);
 		tfId.setText(String.valueOf(accBBL.getAccountCode()));
+		dcngaydk.setDate(dateCurrent);
 		displayList();
 	}
 
@@ -259,9 +280,10 @@ public class accountGUI extends JFrame {
 				String name = tfAccountName.getText();
 				String password = tfPassword.getText();
 				String permission = cbPhanQuyen.getSelectedItem().toString();
-
-				account p = new account(id, name, password, permission);
-
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String ngaykham = dateFormat.format(dcngaydk.getDate());
+				account p = new account(id, name, password, permission, ngaykham);
+				
 				JOptionPane.showMessageDialog(null, accBBL.addAccount(p));
 
 				displayList();
@@ -282,6 +304,11 @@ public class accountGUI extends JFrame {
 
 				p.setId(Integer.parseInt(tfId.getText()));
 				p.setAccountName(tfAccountName.getText());
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String ngaydk = dateFormat.format(dcngaydk.getDate());
+				p.setCreateday(ngaydk);
+				
 				p.setPassword(tfPassword.getText());
 				p.setPermission(cbPhanQuyen.getSelectedItem().toString());
 
@@ -332,7 +359,7 @@ public class accountGUI extends JFrame {
 				while (i < accountList.size()) {
 					account p = accountList.get(i);
 					model.addRow(new Object[] { model.getRowCount() + 1, p.getId(), p.getAccountName(), p.getPassword(),
-							p.getPermission() });
+							p.getPermission(), p.getCreateday() });
 //	    			if(loginGUI.permission.equals("Quản trị hệ thống") && !p.getPermission().equals("Giám đốc")) {
 //		    			model.addRow(new Object [] {
 //		    					model.getRowCount()+1, p.getId(), p.getAccountName(), p.getPassword(), p.getPermission()
@@ -360,6 +387,17 @@ public class accountGUI extends JFrame {
 			tfAccountName.setText(String.valueOf(model.getValueAt(selectedIndex, 2)));
 			tfPassword.setText(String.valueOf(model.getValueAt(selectedIndex, 3)));
 			cbPhanQuyen.setSelectedItem(String.valueOf(model.getValueAt(selectedIndex, 4)));
+			String dd = String.valueOf(model.getValueAt(selectedIndex, 5));
+			String pattern = "dd/mm/yyyy";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+			simpleDateFormat.setLenient(false);
+			try {
+				java.util.Date date = simpleDateFormat.parse(dd);
+				dcngaydk.setDate(date);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 

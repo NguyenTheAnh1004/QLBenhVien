@@ -17,7 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -143,7 +145,11 @@ public class dangKyGUI extends JFrame {
 				String password = String.valueOf(tfMatKhau.getPassword());
 				String permission = tfPhanQuyen.getText();
 
-				account p = new account(id, name, password, permission);
+				Date dateCurrent = new Date(System.currentTimeMillis());
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String ngaydk = dateFormat.format(dateCurrent);
+				account p = new account(id, name, password, permission, ngaydk );
+
 				
 				JOptionPane.showMessageDialog(null, accBBL.addAccount(p));
 				
