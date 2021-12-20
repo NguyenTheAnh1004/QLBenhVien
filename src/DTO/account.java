@@ -1,22 +1,25 @@
 package DTO;
+
 import java.io.*;
 
-public class account{
+public class account {
 	private int id;
 	private String accountName;
 	private String password;
 	private String permission;
-	//private String customerCode;
-		// TODO Auto-generated constructor stub
+	private String createday;
 
-	// contrustor 
+	// private String customerCode;
+	// TODO Auto-generated constructor stub
+
+	// contrustor
 	// nhập
-	
+
 	public account() {
 		accountName = null;
 		password = null;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -33,28 +36,42 @@ public class account{
 		this.permission = permission;
 	}
 
-	//set cứng 
-	public account(int id, String accountName, String password, String permission) {
+	// set cứng
+	public account(int id, String accountName, String password, String permission, String createday) {
 		setId(id);
 		setAccountName(accountName);
 		setPassword(password);
 		setPermission(permission);
+		setCreateday(createday);
 	}
-	
-	public void xuat(){
-	    System.out.format("|%8s         |", accountName);
-	    System.out.format("%14s         |", password );
+
+	public void xuat() {
+		System.out.format("|%8s         |", accountName);
+		System.out.format("%14s         |", password);
 	}
+
 	public String getAccountName() {
 		return accountName;
 	}
+
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getCreateday() {
+		return createday;
+	}
+
+	public void setCreateday(String createday) {
+		this.createday = createday;
+	}
+
 }
