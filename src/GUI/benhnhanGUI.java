@@ -29,6 +29,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import com.toedter.calendar.JDateChooser;
 
 public class benhnhanGUI extends JFrame {
 	List<benhnhan> benhnhanList = new ArrayList<benhnhan>();
@@ -37,7 +42,6 @@ public class benhnhanGUI extends JFrame {
 	private JPanel contentPane;
 	private JTextField tfbenhnhanCode;
 	private JTextField tfbenhnhanName;
-	private JTextField tfbenhnhanBirthday;
 	private JTextField tfBenhnhanAddress;
 	private JTextField tfFind;
 	private JTable table;
@@ -50,7 +54,8 @@ public class benhnhanGUI extends JFrame {
 	String[] gioiTinhList = {"Nam", "Nữ", "Khác"};
 	String[] sogiuongList = {"1", "2", "3", "4"};
 	String[] soPhongList = {"1", "2", "3", "4", "5", "6"};
-
+	private JDateChooser dcNgaysinh;
+	Date dateCurrent = new Date(System.currentTimeMillis());
 	/**
 	 * Launch the application.
 	 */
@@ -166,11 +171,6 @@ public class benhnhanGUI extends JFrame {
 		tfbenhnhanName.setBounds(157, 86, 299, 32);
 		panel_1.add(tfbenhnhanName);
 		
-		tfbenhnhanBirthday = new JTextField();
-		tfbenhnhanBirthday.setColumns(10);
-		tfbenhnhanBirthday.setBounds(157, 138, 299, 32);
-		panel_1.add(tfbenhnhanBirthday);
-		
 		tfBenhnhanAddress = new JTextField();
 		tfBenhnhanAddress.setColumns(10);
 		tfBenhnhanAddress.setBounds(157, 190, 299, 32);
@@ -224,6 +224,11 @@ public class benhnhanGUI extends JFrame {
 		cbSophong.setBounds(157, 358, 299, 33);
 		panel_1.add(cbSophong);
 		
+		dcNgaysinh = new JDateChooser();
+		dcNgaysinh.setBounds(157, 138, 299, 32);
+		panel_1.add(dcNgaysinh);
+		dcNgaysinh.setDate(dateCurrent);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(492, 95, 728, 568);
 		contentPane.add(scrollPane);
@@ -273,29 +278,27 @@ public class benhnhanGUI extends JFrame {
 	}
 	protected void do_btnReset_actionPerformed(ActionEvent e) {
 		tfbenhnhanName.setText("");
-		tfbenhnhanBirthday.setText("");
 		tfBenhnhanAddress.setText("");
 		cbGioiTinh.setSelectedIndex(0);
 		cbSogiuong.setSelectedIndex(0);
 		cbSophong.setSelectedIndex(0);
+		dcNgaysinh.setDate(dateCurrent);
 		tfbenhnhanCode.setText(String.valueOf(bnBLL.getMaBNMax()));
 		displayList();
 	}
 	protected void do_btnAdd_actionPerformed(ActionEvent e) {
-		if(!tfbenhnhanCode.getText().trim().equals("") && !tfbenhnhanName.getText().trim().equals("") && !tfbenhnhanBirthday.getText().trim().equals("") && !tfBenhnhanAddress.getText().trim().equals("")) {
+		if(!tfbenhnhanCode.getText().trim().equals("") && !tfbenhnhanName.getText().trim().equals("") && !tfBenhnhanAddress.getText().trim().equals("")) {
 			try {
 				int code =  Integer.parseInt(tfbenhnhanCode.getText());
 				String name = tfbenhnhanName.getText();
-				String birth =tfbenhnhanBirthday.getText();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String birth = dateFormat.format(dcNgaysinh.getDate());
 				String address = tfBenhnhanAddress.getText();
 				String gioitinh = cbGioiTinh.getSelectedItem().toString();
 				int sogiuong =  Integer.parseInt(cbSogiuong.getSelectedItem().toString());
 				int sophong =  Integer.parseInt(cbSophong.getSelectedItem().toString());
 				Tester t = new Tester();
-				if(!t.day(birth)) {
-					JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ");
-					return ;
-				}
+				
 				benhnhan s=new benhnhan(code,name,birth,address,gioitinh,sogiuong,sophong);				
 				JOptionPane.showMessageDialog(null,bnBLL.addbenhnhan(s));
 				displayList();
@@ -313,7 +316,17 @@ public class benhnhanGUI extends JFrame {
         if(selectedIndex >= 0) {            
             tfbenhnhanCode.setText(String.valueOf(model.getValueAt(selectedIndex, 1)));
     		tfbenhnhanName.setText(String.valueOf(model.getValueAt(selectedIndex, 2)));
-    		tfbenhnhanBirthday.setText(String.valueOf(model.getValueAt(selectedIndex, 3)));
+    		String dd = String.valueOf(model.getValueAt(selectedIndex, 3));
+			String pattern = "dd/mm/yyyy";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+			simpleDateFormat.setLenient(false);
+			try {
+				java.util.Date date = simpleDateFormat.parse(dd);
+				dcNgaysinh.setDate(date);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     		tfBenhnhanAddress.setText(String.valueOf(model.getValueAt(selectedIndex, 4)));
     		cbGioiTinh.setSelectedItem(String.valueOf(model.getValueAt(selectedIndex, 5)));
     		cbSogiuong.setSelectedItem(String.valueOf(model.getValueAt(selectedIndex, 6)));
@@ -323,11 +336,13 @@ public class benhnhanGUI extends JFrame {
 	protected void do_btnEdit_actionPerformed(ActionEvent e) {
 		try {
 			int index = table.getSelectedRow();
-			if(index>=0 && !tfbenhnhanCode.getText().trim().equals("") && !tfbenhnhanName.getText().trim().equals("") && !tfbenhnhanBirthday.getText().trim().equals("") && !tfBenhnhanAddress.getText().trim().equals("")) {
+			if(index>=0 && !tfbenhnhanCode.getText().trim().equals("") && !tfbenhnhanName.getText().trim().equals("") && !tfBenhnhanAddress.getText().trim().equals("")) {
 				benhnhan p = new benhnhan();
 				p.setMabn(Integer.parseInt(tfbenhnhanCode.getText()));
 				p.setTenbn(tfbenhnhanName.getText());
-				p.setNgaysinh(tfbenhnhanBirthday.getText());
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String ngaysinh = dateFormat.format(dcNgaysinh.getDate());
+				p.setNgaysinh(ngaysinh);
 				p.setDiachi(tfBenhnhanAddress.getText());
 				p.setGioitinh(cbGioiTinh.getSelectedItem().toString());
 				p.setSogiuong(Integer.parseInt(cbSogiuong.getSelectedItem().toString()));
