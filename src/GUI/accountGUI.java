@@ -134,7 +134,7 @@ public class accountGUI extends JFrame {
 		tfPassword.setColumns(10);
 		tfPassword.setBounds(157, 104, 299, 32);
 		panel_1.add(tfPassword);
-
+		
 		cbPhanQuyen = new JComboBox(producerList);
 		cbPhanQuyen.setBounds(157, 176, 299, 33);
 		panel_1.add(cbPhanQuyen);

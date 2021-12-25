@@ -31,6 +31,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.awt.Choice;
+import com.toedter.calendar.JDateChooser;
 
 public class nhanvienGUI extends JFrame {
 
@@ -41,12 +46,13 @@ public class nhanvienGUI extends JFrame {
 	private JTextField tfnhanvienCode;
 	private JTextField tfnhanvienName;
 	private JTextField tfnhanvienAddress;
-	private JTextField tfnhanvienBirthday;
 	private JTextField tfFind;
 	DefaultTableModel model = new DefaultTableModel();
 	private JPanel contentPane;
 	private JTable table;
 	private JComboBox cbGioiTinh;
+	Date dateCurrent = new Date(System.currentTimeMillis());
+	private JDateChooser dcNgaysinh;
 
 	/**
 	 * Launch the application.
@@ -161,11 +167,6 @@ public class nhanvienGUI extends JFrame {
 		cbGioiTinh.setBounds(157, 229, 299, 33);
 		panel_1.add(cbGioiTinh);
 
-		tfnhanvienBirthday = new JTextField();
-		tfnhanvienBirthday.setColumns(10);
-		tfnhanvienBirthday.setBounds(157, 301, 299, 32);
-		panel_1.add(tfnhanvienBirthday);
-
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -201,6 +202,11 @@ public class nhanvienGUI extends JFrame {
 		});
 		btnAdd.setBounds(371, 464, 85, 42);
 		panel_1.add(btnAdd);
+		
+		dcNgaysinh = new JDateChooser();
+		dcNgaysinh.setBounds(157, 304, 299, 32);
+		panel_1.add(dcNgaysinh);
+		dcNgaysinh.setDate(dateCurrent);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(492, 95, 728, 568);
@@ -251,27 +257,24 @@ public class nhanvienGUI extends JFrame {
 		tfnhanvienName.setText("");
 		tfnhanvienAddress.setText("");
 		cbGioiTinh.setSelectedIndex(0);
-		tfnhanvienBirthday.setText("");
+		dcNgaysinh.setDate(dateCurrent);
 		tfFind.setText("");
 		displayList();
 	}
 
 	protected void do_btnAdd_actionPerformed(ActionEvent e) {
 		if (!tfnhanvienCode.getText().trim().equals("") && !tfnhanvienName.getText().trim().equals("")
-				&& !tfnhanvienBirthday.getText().trim().equals("") && !tfnhanvienAddress.getText().trim().equals("")) {
+		 && !tfnhanvienAddress.getText().trim().equals("")) {
 			try {
 
 				int code = Integer.parseInt(tfnhanvienCode.getText());
 				String name = tfnhanvienName.getText();
-				String birth = tfnhanvienBirthday.getText();
 				Tester t = new Tester();
-				if (!t.day(birth)) {
-					JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ");
-					return;
-				}
 				String address = tfnhanvienAddress.getText();
 				String gioitinh = cbGioiTinh.getSelectedItem().toString();
-				nhanvien s = new nhanvien(code, name, address, gioitinh, birth);
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String ngaysinh = dateFormat.format(dcNgaysinh.getDate());
+				nhanvien s = new nhanvien(code, name, address, gioitinh, ngaysinh);
 				JOptionPane.showMessageDialog(null, nvBLL.addnhanvien(s));
 				displayList();
 				do_btnReset_actionPerformed(e);
@@ -287,18 +290,15 @@ public class nhanvienGUI extends JFrame {
 		try {
 			int index = table.getSelectedRow();
 			if (index >= 0 && !tfnhanvienCode.getText().trim().equals("") && !tfnhanvienName.getText().trim().equals("")
-					&& !tfnhanvienBirthday.getText().trim().equals("")
 					&& !tfnhanvienAddress.getText().trim().equals("")) {
 				nhanvien p = new nhanvien();
 				p.setManv(Integer.parseInt(tfnhanvienCode.getText()));
 				p.setTennv(tfnhanvienName.getText());
 				p.setDiachi(tfnhanvienAddress.getText());
 				p.setGioitinh(cbGioiTinh.getSelectedItem().toString());
-				p.setNgaysinh(tfnhanvienBirthday.getText());
-				if (!Tester.day(p.getNgaysinh())) {
-					JOptionPane.showMessageDialog(null, "Vui lòng nhập đúng định dạng của ngày");
-					return;
-				}
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				String ngaysinh = dateFormat.format(dcNgaysinh.getDate());
+				p.setNgaysinh(ngaysinh);
 				JOptionPane.showMessageDialog(null, nvBLL.editnhanvien(p));
 				displayList();
 				do_btnReset_actionPerformed(e);
@@ -367,7 +367,17 @@ public class nhanvienGUI extends JFrame {
 			tfnhanvienName.setText(String.valueOf(model.getValueAt(selectedIndex, 2)));
 			tfnhanvienAddress.setText(String.valueOf(model.getValueAt(selectedIndex, 3)));
 			cbGioiTinh.setSelectedItem(String.valueOf(model.getValueAt(selectedIndex, 4)));
-			tfnhanvienBirthday.setText(String.valueOf(model.getValueAt(selectedIndex, 5)));
+			 String dd = String.valueOf(model.getValueAt(selectedIndex, 5));
+				String pattern = "dd/mm/yyyy";
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+				simpleDateFormat.setLenient(false);
+				try {
+					java.util.Date date = simpleDateFormat.parse(dd);
+					dcNgaysinh.setDate(date);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 		}
 	}
