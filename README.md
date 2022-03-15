@@ -1,5 +1,5 @@
 # QLBenhVien
-
+AGile demo
 Mô tả: đồ án quản lý bệnh viện dùng để quản lý bệnh viện ( danh sách bệnh nhân, hồ sơ bệnh án ... ) và các vấn đê cần thiết :)))))
 
 Kết quả hướng tới: với sự dẫn dắt của của thầy Duẩn và thầy Hải nhóm em mong muốn thực hiện được tốt đồ án, và đạt được những yêu cầu cần thiết trong học phần.
