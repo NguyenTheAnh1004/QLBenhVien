@@ -136,6 +136,12 @@ public class adminGUI extends JFrame {
 		btnNewButton_6.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton_6.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnNewButton_6.setBounds(0, 432, 214, 58);
+		btnNewButton_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnThanhtoan(e);
+				
+			}
+		});
 		contentPane.add(btnNewButton_6);
 
 		btnBienLai = new JButton("Biên lai");
@@ -182,7 +188,11 @@ public class adminGUI extends JFrame {
 		btnlogout.setBounds(746, 92, 140, 30);
 		contentPane.add(btnlogout);
 	}
-
+	protected void do_btnThanhtoan (ActionEvent e) {
+		khamBenhGUI khamBenhGUI = new khamBenhGUI();
+		khamBenhGUI.setVisible(true);
+		this.setVisible(false);
+	}
 	protected void do_btnNewButton_8_actionPerformed(ActionEvent e) {
 		hsbaGUI hsbaGUI = new hsbaGUI();
 		hsbaGUI.setVisible(true);
